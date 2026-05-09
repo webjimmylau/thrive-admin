@@ -1,10 +1,14 @@
-import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import { Action, ElMessageBox, ElNotification } from "element-plus";
 import { useUserStore } from "@/stores";
 
 // 配置项目API域名
-export const baseURL = "http://localhost:5000/api";
-// export const baseURL = "http://api.liuyuyang.net:5000/api"
+export const baseURL = "http://localhost:9003/api";
+// export const baseURL = "http://api.liuyuyang.net:9003/api"
 
 // 创建 axios 实例
 export const instance = axios.create({
@@ -32,7 +36,7 @@ instance.interceptors.request.use(
     });
 
     return Promise.reject(err);
-  }
+  },
 );
 
 // 响应拦截
@@ -42,14 +46,14 @@ instance.interceptors.response.use(
     if (res.data.code === 401) {
       const store = useUserStore();
 
-      return ElMessageBox.alert('🔒️ 登录已过期，是否重新登录?', '暂无权限', {
-        confirmButtonText: '去登录',
+      return ElMessageBox.alert("🔒️ 登录已过期，是否重新登录?", "暂无权限", {
+        confirmButtonText: "去登录",
         showClose: false,
         callback: (action: Action) => {
           // 删除用户信息
-          store.quitLogin()
-        }
-      })
+          store.quitLogin();
+        },
+      });
     }
 
     // 只要code不等于200, 就相当于响应失败
@@ -75,7 +79,7 @@ instance.interceptors.response.use(
     });
 
     return Promise.reject(err);
-  }
+  },
 );
 
 // 如果是GET传参就自动识别为query，POST为data

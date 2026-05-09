@@ -99,7 +99,7 @@ const upload = async () => {
     formData.append("file", files.value[i])
   }
 
-  const { data: { code, message } } = await axios.post("http://localhost:5000/api/file", formData, {
+  const { data: { code, message } } = await axios.post("http://localhost:9003/api/file", formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }

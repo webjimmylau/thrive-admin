@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
-import AutoImport from 'unplugin-auto-import/vite'
+import AutoImport from "unplugin-auto-import/vite";
 // 配置组件按需导入
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import { visualizer } from "rollup-plugin-visualizer";
 
 // 配置@路径别名
@@ -19,8 +19,8 @@ export default defineConfig({
       template: {
         // 告诉Vue编译器以box-icon开头的标签是自定义标签而不是组件，不然控制台会有提醒
         compilerOptions: {
-          isCustomElement: tag => tag.startsWith('box-icon')
-        }
+          isCustomElement: (tag) => tag.startsWith("box-icon"),
+        },
       },
     }),
     // 配置自动按需导入
@@ -34,7 +34,7 @@ export default defineConfig({
         globalsPropValue: true,
       },
       // 配置文件
-      dts: "auto-import.d.ts"
+      dts: "auto-import.d.ts",
     }),
     // 配置组件自动导入
     Components({
@@ -46,22 +46,22 @@ export default defineConfig({
       // 组件的有效文件扩展名
       extensions: ["vue"],
       // 配置自动导入组件的文件生成的位置
-      dts: "components.d.ts"
+      dts: "components.d.ts",
     }),
     visualizer({
       gzipSize: true,
       brotliSize: true,
       emitFile: false,
       filename: "test.html", //分析图生成的文件名
-      open: true //如果存在本地服务端口，将在打包后自动展示
-    })
+      open: true, //如果存在本地服务端口，将在打包后自动展示
+    }),
   ],
   // ↓解析配置
   resolve: {
     // ↓路径别名
     alias: {
-      "@": resolve(__dirname, "./src")
-    }
+      "@": resolve(__dirname, "./src"),
+    },
   },
   css: {
     preprocessorOptions: {
@@ -72,7 +72,10 @@ export default defineConfig({
             @use "@/styles/var.scss" as *;
             @use "@/styles/common.scss" as *;
         `,
-      }
-    }
-  }
-})
+      },
+    },
+  },
+  server: {
+    port: 9002,
+  },
+});
